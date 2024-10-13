@@ -1,0 +1,449 @@
+{
+  "uuid": "030d396c-0ec8-4a13-94ed-d2f4f729be0b",
+  "lastMigration": 32,
+  "name": "Mocketplace",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "3f67a91d-d625-4fd4-84b3-7ff008047c7d",
+      "type": "http",
+      "documentation": "List of offers",
+      "method": "get",
+      "endpoint": "offers",
+      "responses": [
+        {
+          "uuid": "6d6dc88e-a57a-4e98-9da7-4b1c6656f575",
+          "body": "{{setVar 'currentPage' (queryParam 'page')}}\n\n{\n  \"data\": {\n    \"offers\": [\n      \"2024001\",\n      \"2024002\"\n    ]\n  },\n  \"pagination\": {\n    \"total_records\": 5,\n    \"per_page\": 2,\n    \"current_page\": {{@currentPage}},\n    \"total_pages\": 3,\n    \"next_page\": {{add @currentPage 1}},\n    \"prev_page\": null\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Page 1",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "1",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ebdc242b-c5ca-4556-b367-79b5fcee5bb6",
+          "body": "{{setVar 'currentPage' (queryParam 'page')}}\n\n{\n  \"data\": {\n    \"offers\": [\n      \"2024003\",\n      \"2024004\"\n    ]\n  },\n  \"pagination\": {\n    \"total_records\": 5,\n    \"per_page\": 2,\n    \"current_page\": {{@currentPage}},\n    \"total_pages\": 3,\n    \"next_page\": {{add @currentPage 1}},\n    \"prev_page\": {{subtract @currentPage 1}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Page 2",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "2",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "d7e426fd-ccfc-4af7-8f9f-20703920aa05",
+          "body": "{{setVar 'currentPage' (queryParam 'page')}}\n\n{\n  \"data\": {\n    \"offers\": [\n      \"2024005\"\n    ]\n  },\n  \"pagination\": {\n    \"total_records\": 5,\n    \"per_page\": 2,\n    \"current_page\": {{@currentPage}},\n    \"total_pages\": 3,\n    \"next_page\": {{add @currentPage 1}},\n    \"prev_page\": {{subtract @currentPage 1}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Page 3",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "3",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "12d043de-e81d-4da9-8a9e-11d3dafdf3a1",
+          "body": "{{setVar 'currentPage' (queryParam 'page')}}\n\n{\n  \"data\": {\n    \"offers\": []\n  },\n  \"pagination\": {\n    \"total_records\": 5,\n    \"per_page\": 2,\n    \"current_page\": {{@currentPage}},\n    \"total_pages\": 3,\n    \"next_page\": {{add @currentPage 1}},\n    \"prev_page\": {{subtract @currentPage 1}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Page 4",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "page",
+              "value": "[1-3]",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "fa32a985-122e-4127-87ea-c48ba31ed245",
+      "type": "http",
+      "documentation": "Details of a offer",
+      "method": "get",
+      "endpoint": "offers/:id",
+      "responses": [
+        {
+          "uuid": "e83e443c-237e-42fd-8cf5-d576adafce38",
+          "body": "{\n  \"data\": {\n    \"id\":{{urlParam 'id'}},\n    \n    {{# switch (urlParam 'id')}}\n      {{# case '2024001'}}\n        \"title\": \"Camiseta regata\",\n        \"description\": \"Camiseta regata 100% algodão\",\n        \"status\": \"active\",\n        \"stock\": 10\n      {{/ case}}\n      {{# case '2024002'}}\n        \"title\": \"Blusa Cropped\",\n        \"description\": \"Blusa Cropped tamanho único\",\n        \"status\": \"active\",\n        \"stock\": 12\n      {{/ case}}\n      {{# case '2024003'}}\n        \"title\": \"Calça jeans\",\n        \"description\": \"Calça jeans azul escuro com detalhes\",\n        \"status\": \"paused\",\n        \"stock\": 5\n      {{/ case}}\n      {{# case '2024004'}}\n        \"title\": \"Bermuda cargo\",\n        \"description\": \"Bermuda cargo de secagem rápida\",\n        \"status\": \"paused\",\n        \"stock\": 10\n      {{/ case}}\n      {{# case '2024005'}}\n        \"title\": \"Vestido longo\",\n        \"description\": \"Vestido longo para festas e eventos\",\n        \"status\": \"active\",\n        \"stock\": 8\n      {{/ case}}\n    {{/ switch}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "b7a447fb-b300-43fd-8d29-c9615cf6e6d4",
+          "body": "{\n  \"message\": \"Offer not found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "id",
+              "value": "202400[1-5]",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "0d85b40f-7c81-485a-86fb-522724fa208c",
+      "type": "http",
+      "documentation": "List of offer images",
+      "method": "get",
+      "endpoint": "offers/:id/images",
+      "responses": [
+        {
+          "uuid": "4fdd5dee-f42f-4694-9b39-2743aa9ee9ca",
+          "body": "{\n  \"data\": {\n    \"images\": [\n      {{# switch (urlParam 'id')}}\n        {{# case '2024001'}}\n          {\n            \"url\": \"https://img.freepik.com/free-photo/white-muscle-shirt-streetwear-fashion_53876-123184.jpg?t=st=1726247185~exp=1726250785~hmac=5ec254f8e6c3d6d35709aa70d1d69c347764204995c1ba70c6270b21e4374c7a&w=740\"\n          },\n          {\n            \"url\": \"https://img.freepik.com/free-photo/white-muscle-shirt-streetwear-fashion_53876-101512.jpg?t=st=1726247186~exp=1726250786~hmac=21ba17852a88dc19f19cdcf9eab44da592dc84298836e73c6564c35b7d98253e&w=740\"\n          }\n        {{/ case}}\n        {{# case '2024002'}}\n          {\n            \"url\": \"https://img.freepik.com/free-vector/hand-drawn-hoodie-outline-illustration_23-2150926949.jpg?t=st=1726247622~exp=1726251222~hmac=438d102c1e8696766d23520b4cfa405951acb5aa7ac1f8ef47627fb821864fbb&w=740\"\n          }\n        {{/ case}}\n        {{# case '2024003'}}\n          {\n            \"url\": \"https://img.freepik.com/free-vector/cartoon-denim-pants-with-coathanger_1308-84570.jpg?t=st=1726247359~exp=1726250959~hmac=149e174bbec86f8e4b9b3b89c239a78365e700498f069801b8fa2aedc501c50f&w=360\"\n          },\n          {\n            \"url\": \"https://img.freepik.com/free-vector/denim-pants-cartoon-sticker_1308-81792.jpg?t=st=1726247372~exp=1726250972~hmac=70d33a112a9d8127a3756d0f8ecf6d4a5338e909f53f72e1af4ef95f91c19d88&w=740\"\n          }\n        {{/ case}}\n        {{# case '2024004'}}\n          {\n            \"url\": \"https://img.freepik.com/free-vector/sticker-design-with-green-shorts-isolated_1308-69985.jpg?t=st=1726247453~exp=1726251053~hmac=6128373c567b032ebafcf5dac0fe22167dd620cb728b0abef23bf0770c99e889&w=900\"\n          },\n          {\n            \"url\": \"https://img.freepik.com/free-vector/sticker-template-with-casual-shorts-isolated_1308-58790.jpg?t=st=1726247452~exp=1726251052~hmac=99a33ebb8cacbd842eb0e85c2b912697996cb2f83a81e398741236133a532303&w=826\"\n          }\n        {{/ case}}\n        {{# case '2024005'}}\n          {\n            \"url\": \"https://img.freepik.com/free-vector/hand-drawn-dress-outline-illustration_23-2150911069.jpg?t=st=1726247576~exp=1726251176~hmac=0d04c168193f228ac03d92df4b40d711da21c6e4e652b81b09c5453b0ab6e2f6&w=1060\"\n          }\n        {{/ case}}\n      {{/ switch}}\n    ]\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c0ce15be-fe44-453d-8f4f-365463518410",
+          "body": "{\n  \"message\": \"Offer not found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "id",
+              "value": "202400[1-5]",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "ae58849b-c17d-4ad3-a29a-a7c76f47651f",
+      "type": "http",
+      "documentation": "Get offer price",
+      "method": "get",
+      "endpoint": "offers/:id/prices",
+      "responses": [
+        {
+          "uuid": "a0909869-f092-43b6-9c44-d1c2c20676c5",
+          "body": "{\n  \"data\": {\n    {{# switch (urlParam 'id')}}\n      {{# case '2024001'}}\n        \"price\": 29.90\n      {{/ case}}\n      {{# case '2024002'}}\n       \"price\": 129.90\n      {{/ case}}\n      {{# case '2024003'}}\n        \"price\": 229.90\n      {{/ case}}\n      {{# case '2024004'}}\n        \"price\": 79.90\n      {{/ case}}\n      {{# case '2024005'}}\n       \"price\": 99.90\n      {{/ case}}\n    {{/ switch}}\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "3b00fc07-df21-4d77-9a46-f84ae28023c9",
+          "body": "{\n  \"message\": \"Offer not found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "id",
+              "value": "202400[1-5]",
+              "invert": true,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "dd27a132-5d9e-4c0b-9ff9-01e782c3178d",
+      "type": "http",
+      "documentation": "Create an offer on Hub",
+      "method": "post",
+      "endpoint": "hub/create-offer",
+      "responses": [
+        {
+          "uuid": "aac50fa0-fb2c-49c5-b5d9-3788282bc57f",
+          "body": "{\n  \"offer\": {\n      \"title\": \"{{body 'title'}}\",\n      \"description\": \"{{body 'description'}}\",\n      \"status\": \"{{body 'status'}}\",\n      \"stock\": \"{{body 'stock'}}\",\n      \"created_at\": \"{{now}}\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "19d62188-eaf6-4909-8806-1a66fe8e88a4",
+          "body": "{\n  \"message\": \"Some required fields aren't present\"\n}",
+          "latency": 0,
+          "statusCode": 422,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "title",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "description",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "status",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            },
+            {
+              "target": "body",
+              "modifier": "stock",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "3f67a91d-d625-4fd4-84b3-7ff008047c7d"
+    },
+    {
+      "type": "route",
+      "uuid": "fa32a985-122e-4127-87ea-c48ba31ed245"
+    },
+    {
+      "type": "route",
+      "uuid": "0d85b40f-7c81-485a-86fb-522724fa208c"
+    },
+    {
+      "type": "route",
+      "uuid": "ae58849b-c17d-4ad3-a29a-a7c76f47651f"
+    },
+    {
+      "type": "route",
+      "uuid": "dd27a132-5d9e-4c0b-9ff9-01e782c3178d"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
