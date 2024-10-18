@@ -29,8 +29,6 @@ class ImportUpdater implements IImportUpdater
             'status' => $status
         ]);
 
-        ImportCreated::dispatch($import);
-
         return $import;
     }
 }

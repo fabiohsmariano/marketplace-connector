@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Entities\Enums\ImportStatus;
 use App\Entities\Import;
-use App\UseCase\Contracts\Gateways\IHubGateway;
 use App\UseCase\Contracts\Hub\IHubSender;
 use App\UseCase\Contracts\Import\IImportUpdater;
 use Exception;
@@ -44,8 +43,7 @@ class SendOffer implements ShouldQueue, ShouldBeUnique
             Log::alert('Erro ao enviar oferta ao hub', [
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'message' => $e->getMessage()
             ]);
 
             with(

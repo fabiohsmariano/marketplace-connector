@@ -32,8 +32,7 @@ class ImportController extends Controller
             Log::alert('Erro ao agendar importação', [
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'message' => $e->getMessage()
             ]);
 
             return response()->json([

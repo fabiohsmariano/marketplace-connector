@@ -4,11 +4,9 @@ namespace App\Jobs;
 
 use App\Entities\Enums\ImportStatus;
 use App\Entities\Import;
-use App\UseCase\Contracts\Gateways\IOfferGateway;
 use App\UseCase\Contracts\Import\IImportUpdater;
 use App\UseCase\Contracts\Offer\IOfferFinder;
 use Exception;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
@@ -16,7 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class FetchOfferReferences implements ShouldQueue, ShouldBeUnique
+class FetchOfferReferences implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -44,17 +42,15 @@ class FetchOfferReferences implements ShouldQueue, ShouldBeUnique
             );
 
             foreach ($offerReferences as $ref) {
-                Log::info('passou ' . $ref);
                 FetchOfferData::dispatch($this->import, $ref);
             }
 
-            FetchOfferReferences::dispatch($this->import,$this->page + 1);
+            FetchOfferReferences::dispatch($this->import, $this->page + 1);
         } catch (Exception $e) {
             Log::alert('Erro na consulta das referências das ofertas', [
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'message' => $e->getMessage()
             ]);
 
             with(

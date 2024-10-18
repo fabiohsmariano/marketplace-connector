@@ -51,8 +51,7 @@ class FetchOfferData implements ShouldQueue, ShouldBeUnique
             Log::alert('Erro ao consultar dados daoferta', [
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'message' => $e->getMessage()
             ]);
 
             with(

@@ -33,10 +33,6 @@ class OfferGateway implements IOfferGateway
 
         $offers = $contents['data']['offers'] ?? [];
 
-        if (blank($offers)) {
-            throw new Exception('Ofertas não encontradas.', Response::HTTP_NOT_FOUND);
-        }
-
         return $offers;
     }
 
@@ -81,13 +77,9 @@ class OfferGateway implements IOfferGateway
 
         $contents = json_decode($response->getBody()->getContents(), true);
 
-        $offerData = $contents['data']['images'] ?? [];
+        $images = $contents['data']['images'] ?? [];
 
-        if (blank($offerData)) {
-            throw new Exception('Imagens da oferta não encontradas.', Response::HTTP_NOT_FOUND);
-        }
-
-        return $offerData;
+        return $images;
     }
 
     /**
@@ -106,12 +98,12 @@ class OfferGateway implements IOfferGateway
 
         $contents = json_decode($response->getBody()->getContents(), true);
 
-        $offerData = $contents['data']['price'] ?? [];
+        $price = $contents['data']['price'] ?? 0;
 
-        if (blank($offerData)) {
-            throw new Exception('Preço da oferta não encontradas.', Response::HTTP_NOT_FOUND);
+        if (blank($price)) {
+            throw new Exception('Erro ao consultar o preço da oferta.', Response::HTTP_NOT_FOUND);
         }
 
-        return $offerData;
+        return $price;
     }
 }
