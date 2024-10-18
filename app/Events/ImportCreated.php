@@ -2,16 +2,21 @@
 
 namespace App\Events;
 
-use App\Models\Import;
+use App\Entities\Import;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ImportRequested
+class ImportCreated
 {
     use Dispatchable, SerializesModels;
 
     public function __construct(
-        public Import $importData
+        public Import $import
     ) {
+    }
+
+    public function getImport(): Import
+    {
+        return $this->import;
     }
 }

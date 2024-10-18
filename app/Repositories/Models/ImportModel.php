@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Repositories\Models;
 
-use App\Enums\ImportStatus;
+use App\Entities\Enums\ImportStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Import extends Model
+class ImportModel extends Model
 {
     use HasFactory;
+
+    protected $table = 'imports';
 
     protected $fillable = [
         'status'
