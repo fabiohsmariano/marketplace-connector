@@ -41,11 +41,14 @@ class FetchOfferReferences implements ShouldQueue
                 fn (IOfferFinder $finder) => $finder->fetchReferences($this->page)
             );
 
-            foreach ($offerReferences as $ref) {
-                FetchOfferData::dispatch($this->import, $ref);
+            if(!blank($offerReferences)) {
+                foreach ($offerReferences as $ref) {
+                    FetchOfferData::dispatch($this->import, $ref);
+                }
+    
+                FetchOfferReferences::dispatch($this->import, $this->page + 1);
             }
-
-            FetchOfferReferences::dispatch($this->import, $this->page + 1);
+            
         } catch (Exception $e) {
             Log::alert('Erro na consulta das referências das ofertas', [
                 'line' => $e->getLine(),
